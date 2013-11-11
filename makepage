@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# make page - A script to produce an HTML file
+
+content="Your page content goes here."
+title="--a webpage--"
+stamp="Edit by $USER, $(date +"%x %r %Z")"
+
+### Functions
+function lc1 {
+	echo "function lc1;"
+
+}
+
+function lc2 {
+	echo "function lc2;"
+}
+
+### Main
+if [ -f .bash_profile ]; then
+    echo "You have a .bash_profile. Things are fine."
+else
+    echo "Yikes! You have no .bash_profile!"
+fi
+ 
+cat <<- _EOF_
+  <HTML>
+  <HEAD>
+    <TITLE>
+	$title
+    </TITLE>
+  </HEAD>
+ 
+  <BODY>
+	$stamp
+	$content
+	$(lc1)
+  </BODY>
+  
+  <BODY>
+	$content
+	$(lc2)
+  </BODY>
+  </HTML>
+_EOF_

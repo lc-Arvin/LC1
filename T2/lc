@@ -1,0 +1,37 @@
+#!/bin/bash
+
+#bash file for test1
+#lc
+
+LOGFILE=
+TIMESTAMP=$(date +"%Y-%m-%d, %H:%M:%S")
+
+Vruntime=
+ProcessId=
+ProcessName=
+
+ps -o pid,comm --ppid=1 |logger  |tee name.txt
+
+echo "Please choose which process you'd like to monitor: "
+read -t 60 ProcessId
+echo -e "You choose to Monitor Process: $(ps -o pid,comm --pid=$ProcessId | grep $ProcessId)"
+ProcessName=$(ps -o comm  --no-header  --pid=$ProcessId)
+
+while ps -o comm,pid --ppid=1 | grep $ProcessId > /dev/null
+do
+	Vruntime=$(cat /proc/$ProcessId/sched | grep se.vruntime | awk '{print $3}')
+	sleep 1s
+done
+
+echo -e "The process $ProcessName is died;\n The last se.vruntime is: $Vruntime "
+#if ps -o comm,pid --ppid=1 | grep $ProcessId > /dev/null 
+#then 
+#	echo "exist, now monitor the process..."
+#	while ps -o comm,pid --ppid=1 | grep $ProcessId > /dev/null
+#	do 
+#		 
+#else
+#	echo "not exist"
+#fi
+#
+#cat /proc/$ProcessId/sched | grep se.vruntime

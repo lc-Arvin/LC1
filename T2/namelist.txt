@@ -72,3 +72,4 @@
  2227 unity-scope-vid
  2474 ubuntuone-syncd
  2530 system-service-
+ 8267 chrome
